@@ -15,55 +15,80 @@ class Hex
 {
 	// returns a random hex color
 	public static function make(){
-    	$rh = "";    	
-    	for ($i=0; $i < 3 ; $i++) { 
-    		$rh = $rh . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+    	$rh = "#";
+    	$i = 0;
+    	for ( ; $i < 6; $i++ ) {
+    		$j = mt_rand( 48, 63 );
+    		if ( $j > 57 ) {
+    			$j += 39;
+    		}
+    		$rh .= chr( $j );
     	}
-    	return '#' . $rh;
+    	return $rh;
 	}
 
 	// returns a light color
-	public static function light(){
-		$light_arr = array('a','b','c','d','e','f');
-		$lightHex = "";
-
-		for ($i=0; $i <= 5 ; $i++) { 
-			$lightHex .= $light_arr[mt_rand(0,5)];
+	public static function light() {
+		$lightHex = "#";
+		$i = 0;
+		for ( ; $i < 6; $i++ ) { 
+			$lightHex .= chr( mt_rand( 97 , 102 ) );
 		}
-
-		return '#' . $lightHex;
+		return $lightHex;
 	}
 
 	// returns a dark color
 	public static function dark(){
-		$darkHex = "";
-
-		for ($i=0; $i <= 5 ; $i++) { 
-			$darkHex .= mt_rand(0,9);
+		$darkHex = "#";
+		$i = 0;
+		for ( ; $i < 6; $i++ ) { 
+			$darkHex .= chr( mt_rand( 48, 57 ) );
 		}
-		
-		return '#' . $darkHex;		
+		return $darkHex;	
 	}
 
-	// returns a cool color
+	// returns a cool color (more blue)
 	public static function cool(){
-		$r = mt_rand(0,150);
-		$g = mt_rand(0,150);
-		$b = mt_rand(160,255);
-		$coolHex = dechex($r . $g . $b);
-
-		return '#' . $coolHex;
+		$coolHex = "#";
+		$i = 0;
+		// red and green (00 - 96)
+		for ( ; i < 4; i++ ) {
+			if ( i % 2 == 0) {
+				$coolHex .= chr( mt_rand( 48, 54 ) ); // 0-6
+			} else {
+				$coolHex .= chr( mt_rand( 48, 57 ) ); // 0-9
+			}
+		}
+		// blue (A0 to FF)
+		$coolHex .= chr( mt_rand( 97, 102 ) ); // A-F
+		$j = mt_rand( 48, 63 );
+		if ( $j > 57 ) {
+			$j += 39;
+		}
+    	$coolHex .= chr( $j ); // 0-F
+		return $coolHex;
 	}
 
-	// returns a warm color
+	// returns a warm color (more red)
 	public static function warm(){
-		$r = mt_rand(160,255);
-		$g = mt_rand(0,150);
-		$b = mt_rand(0,150);
-		$warmHex = dechex($r . $g . $b);
-
-		return '#' . $warmHex;		
-	}	
+		$warmHex = "#";
+		// red (A0 to FF)
+		$coolHex .= chr( mt_rand( 97, 102 ) ); // A-F
+		$j = mt_rand( 48, 63 );
+		if ( $j > 57 ) {
+			$j += 39;
+		}
+    	$coolHex .= chr( $j ); // 0-F
+    	// green and blue (00 - 96)
+		for ( ; i < 4; i++ ) {
+			if ( i % 2 == 0) {
+				$coolHex .= chr( mt_rand( 48, 54 ) ); // 0-6
+			} else {
+				$coolHex .= chr( mt_rand( 48, 57 ) ); // 0-9
+			}
+		}
+		return $warmHex;
+	}
 
 }
 
