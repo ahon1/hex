@@ -13,18 +13,36 @@ namespace Canvasowl;
  */
 class Hex
 {
+
+	// '0' to '6'
+	private static function rangeLow() {
+		return chr( mt_rand( 48, 54 ) );
+	}
+
+	// '0' to '9'
+	private static function rangeMid() {
+		return chr( mt_rand( 48, 57 ) );
+	}
+
+	// 'A' to 'F'
+	private static function rangeHigh() {
+		return chr( mt_rand( 65, 70 ) );
+	}
+
+	// '0' to 'F'
+	private static function rangeFull() {
+		$ch = mt_rand( 48, 63 );
+		return chr( ( ( $ch > 57 ) ? $ch + 7 : $ch ) );
+	}
+
 	// returns a random hex color
 	public static function make(){
-    	$rh = "#";
+    	$random = "#";
     	$i = 0;
     	for ( ; $i < 6; $i++ ) {
-    		$j = mt_rand( 48, 63 );
-    		if ( $j > 57 ) {
-    			$j += 39;
-    		}
-    		$rh .= chr( $j );
+    		$random .= Hex::rangeFull();
     	}
-    	return $rh;
+    	return $random;
 	}
 
 	// returns a light color
@@ -32,7 +50,7 @@ class Hex
 		$lightHex = "#";
 		$i = 0;
 		for ( ; $i < 6; $i++ ) { 
-			$lightHex .= chr( mt_rand( 97 , 102 ) );
+			$lightHex .= Hex::rangeHigh();
 		}
 		return $lightHex;
 	}
@@ -42,49 +60,34 @@ class Hex
 		$darkHex = "#";
 		$i = 0;
 		for ( ; $i < 6; $i++ ) { 
-			$darkHex .= chr( mt_rand( 48, 57 ) );
+			$darkHex .= Hex::rangeMid();
 		}
 		return $darkHex;	
 	}
 
-	// returns a cool color (more blue)
+	// returns a cool color
 	public static function cool(){
 		$coolHex = "#";
 		$i = 0;
-		// red and green (00 - 96)
-		for ( ; i < 4; i++ ) {
-			if ( i % 2 == 0) {
-				$coolHex .= chr( mt_rand( 48, 54 ) ); // 0-6
+		for ( ; $i < 4; $i++ ) {
+			if ( $i % 2 == 0) {
+				$coolHex .= Hex::rangeLow();
 			} else {
-				$coolHex .= chr( mt_rand( 48, 57 ) ); // 0-9
+				$coolHex .= Hex::rangeMid();
 			}
 		}
-		// blue (A0 to FF)
-		$coolHex .= chr( mt_rand( 97, 102 ) ); // A-F
-		$j = mt_rand( 48, 63 );
-		if ( $j > 57 ) {
-			$j += 39;
-		}
-    	$coolHex .= chr( $j ); // 0-F
-		return $coolHex;
+		return $coolHex . Hex::rangeHigh() . Hex::rangeFull();
 	}
 
 	// returns a warm color (more red)
 	public static function warm(){
-		$warmHex = "#";
-		// red (A0 to FF)
-		$coolHex .= chr( mt_rand( 97, 102 ) ); // A-F
-		$j = mt_rand( 48, 63 );
-		if ( $j > 57 ) {
-			$j += 39;
-		}
-    	$coolHex .= chr( $j ); // 0-F
-    	// green and blue (00 - 96)
-		for ( ; i < 4; i++ ) {
-			if ( i % 2 == 0) {
-				$coolHex .= chr( mt_rand( 48, 54 ) ); // 0-6
+		$warmHex = "#" . Hex::rangeHigh() . Hex::rangeFull();
+		$i = 0;
+		for ( ; $i < 4; $i++ ) {
+			if ( $i % 2 == 0) {
+				$warmHex .= Hex::rangeLow();
 			} else {
-				$coolHex .= chr( mt_rand( 48, 57 ) ); // 0-9
+				$warmHex .= Hex::rangeMid();
 			}
 		}
 		return $warmHex;
