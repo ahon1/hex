@@ -28,39 +28,29 @@ class Hex
 		return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT );
 	}
 
-	// returns a character between '0' - '9'
-	private static function charDigit() {
-		return chr( mt_rand( 48, 57 ) );
+	// returns hex string with value of '00' - '99'
+	private static function rangeDigit() {
+		return str_pad( dechex( mt_rand( 0, 153 ) ), 2, '0', STR_PAD_LEFT );
 	}
 
-	// returns a character between 'A' - 'F'
-	private static function charAlpha() {
-		return chr( mt_rand( 65, 70 ) );
+	// returns hex string with value of 'AA' - 'FF'
+	private static function rangeAlpha() {
+		return str_pad( dechex( mt_rand( 170, 255 ) ), 2, '0', STR_PAD_LEFT );
 	}
 
 	// returns a random hex color
 	public static function make(){
-    	return '#' . Hex::rangeFull() . Hex::rangeFull() . Hex::rangeFull();
+		return '#' . Hex::rangeFull() . Hex::rangeFull() . Hex::rangeFull();
 	}
 
 	// returns a light color
 	public static function light(){
-		$lightHex = "#";
-		$i = 0;
-		for ( ; $i <= 5; $i++) { 
-			$lightHex .= Hex::charAlpha();
-		}
-		return $lightHex;
+		return '#' . Hex::rangeAlpha() . Hex::rangeAlpha() . Hex::rangeAlpha();
 	}
 
 	// returns a dark color
 	public static function dark(){
-		$darkHex = "#";
-		$i = 0;
-		for ( ; $i <= 5; $i++) { 
-			$darkHex .= Hex::charDigit();
-		}
-		return $darkHex;
+		return '#' . Hex::rangeDigit() . Hex::rangeDigit() . Hex::rangeDigit();
 	}
 
 	// returns a cool color
