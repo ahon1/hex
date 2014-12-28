@@ -1,6 +1,5 @@
 <?php 
 namespace Canvasowl;
-
 /**
  * This class is able to output numurous hex colors.
  *
@@ -13,44 +12,43 @@ namespace Canvasowl;
  */
 class Hex
 {
-
-	// '0' to '6'
+	
+	// returns hex string represtation of a decimal value between 0 - 150
 	private static function rangeLow() {
-		return chr( mt_rand( 48, 54 ) );
+		return str_pad( dechex( mt_rand( 0, 150 ) ), 2, '0', STR_PAD_LEFT );
 	}
 
-	// '0' to '9'
-	private static function rangeMid() {
+	// returns hex string represtation of a decimal value between 160 - 255
+	private static function rangeHigh() {
+		return dechex( mt_rand( 160, 255 ) );
+	}
+
+	// returns hex string represtation of a decimal value between 0 - 255
+	private static function rangeFull() {
+		return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT );
+	}
+
+	// returns a character between '0' - '9'
+	private static function charDigit() {
 		return chr( mt_rand( 48, 57 ) );
 	}
 
-	// 'A' to 'F'
-	private static function rangeHigh() {
+	// returns a character between 'A' - 'F'
+	private static function charAlpha() {
 		return chr( mt_rand( 65, 70 ) );
-	}
-
-	// '0' to 'F'
-	private static function rangeFull() {
-		$ch = mt_rand( 48, 63 );
-		return chr( ( ( $ch > 57 ) ? $ch + 7 : $ch ) );
 	}
 
 	// returns a random hex color
 	public static function make(){
-    	$random = "#";
-    	$i = 0;
-    	for ( ; $i < 6; $i++ ) {
-    		$random .= Hex::rangeFull();
-    	}
-    	return $random;
+    	return '#' . Hex::rangeFull() . Hex::rangeFull() . Hex::rangeFull();
 	}
 
 	// returns a light color
-	public static function light() {
+	public static function light(){
 		$lightHex = "#";
 		$i = 0;
-		for ( ; $i < 6; $i++ ) { 
-			$lightHex .= Hex::rangeHigh();
+		for ( ; $i <= 5; $i++) { 
+			$lightHex .= Hex::charAlpha();
 		}
 		return $lightHex;
 	}
@@ -59,42 +57,23 @@ class Hex
 	public static function dark(){
 		$darkHex = "#";
 		$i = 0;
-		for ( ; $i < 6; $i++ ) { 
-			$darkHex .= Hex::rangeMid();
+		for ( ; $i <= 5; $i++) { 
+			$darkHex .= Hex::charDigit();
 		}
-		return $darkHex;	
+		return $darkHex;
 	}
 
 	// returns a cool color
 	public static function cool(){
-		$coolHex = "#";
-		$i = 0;
-		for ( ; $i < 4; $i++ ) {
-			if ( $i % 2 == 0) {
-				$coolHex .= Hex::rangeLow();
-			} else {
-				$coolHex .= Hex::rangeMid();
-			}
-		}
-		return $coolHex . Hex::rangeHigh() . Hex::rangeFull();
+		return '#' . Hex::rangeLow() . Hex::rangeLow() . Hex::rangeHigh();
 	}
 
-	// returns a warm color (more red)
+	// returns a warm color
 	public static function warm(){
-		$warmHex = "#" . Hex::rangeHigh() . Hex::rangeFull();
-		$i = 0;
-		for ( ; $i < 4; $i++ ) {
-			if ( $i % 2 == 0) {
-				$warmHex .= Hex::rangeLow();
-			} else {
-				$warmHex .= Hex::rangeMid();
-			}
-		}
-		return $warmHex;
+		return '#' . Hex::rangeHigh() . Hex::rangeLow() . Hex::rangeLow();
 	}
 
 }
-
 
 
 
