@@ -35,7 +35,7 @@ class Hex
 
 	// returns hex string with value of 'AA' - 'FF'
 	private static function rangeAlpha() {
-		return str_pad( dechex( mt_rand( 170, 255 ) ), 2, '0', STR_PAD_LEFT );
+		return dechex( mt_rand( 170, 255 ) );
 	}
 
 	// returns a random hex color
